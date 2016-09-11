@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 app.get('/', function (req, res) {
-  res.send('O meu nome é Pedro Saratscheff');
+  res.send('We believe your ip is: ' + req.ip); //.toString()?
 });
 
 app.listen(3000, function () {
