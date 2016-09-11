@@ -16,9 +16,8 @@ app.get('/', function (req, res) {
       var d = new Date();
       collection.insert({ ip: req.ip, date: d })
       collection.find().toArray(function(err, results) {
-        console.dir(results);
+        ip_list = results;
       });
-      ip_list = collection.find();
       db.close();
   });
 
