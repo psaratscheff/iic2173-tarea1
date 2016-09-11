@@ -15,7 +15,10 @@ app.get('/', function (req, res) {
       var collection = db.collection('ip_list');
       var d = new Date();
       collection.insert({ ip: req.ip, date: d })
-      ip_list = db.collection.find();
+      collection.find().toArray(function(err, results) {
+        console.dir(results);
+      });
+      ip_list = collection.find();
       db.close();
   });
 
