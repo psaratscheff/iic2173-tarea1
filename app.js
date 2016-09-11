@@ -21,7 +21,13 @@ app.get('/', function (req, res) {
       db.close();
   });
 
-  res.send('We believe your ip is: ' + req.ip + '\n and the lastest ips were:\n' + '1: ' + ip_list[0]['ip'] + '\n2: ' + ip_list[1]['ip'] + '\n3: ' + ip_list[2]['ip']);
+  var html = '<html><body>We believe your ip is: ' + req.ip + '<br/>The Latest IPs where:'
+  ip_list.forEach(function(ip_data){
+    html = html + '<br/>Date: ' + ip_data['date'] + ' /// IP: ' + ip_data['ip']
+  });
+  html = html + '</body></html>'
+
+  res.send(html);
 });
 
 app.listen(3000, function () {
