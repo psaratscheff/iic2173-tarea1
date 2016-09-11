@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/psaratscheff/iic2173-tarea1#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "mongodb": "^2.2.9"
   }
 }
