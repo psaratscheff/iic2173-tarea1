@@ -5,30 +5,21 @@ app.enable('trust proxy');
 
 var MongoClient = require('mongodb').MongoClient
     , format = require('util').format;
-MongoClient.connect('mongodb://127.0.0.1:27017/test', function (err, db) {
-    if (err) {
-        throw err;
-    } else {
-        console.log("successfully connected to the database");
-    }
-
-    var collection = db.collection('test_insert');
-    collection.insert({a:2}, function(err, docs) {
-        collection.count(function(err, count) {
-            console.log(format("count = %s", count));
-        });
-    });
-
-    // Locate all the entries using find
-    collection.find().toArray(function(err, results) {
-        console.dir(results);
-        // Let's close the db
-        db.close();
-    });
-});
-
+var ip_list;
 app.get('/', function (req, res) {
-  res.send('We believe your ip is: ' + req.ip);
+  MongoClient.connect('mongodb://127.0.0.1:27017/test', function (err, db) {
+      if (err) {
+          throw err;
+      }
+
+      var collection = db.collection('ip_list');
+      var d = new Date();
+      collection.insert({ ip: req.ip, date: d })
+      ip_list = db.collection.find();
+      db.close();
+  });
+
+  res.send('We believe your ip is: ' + req.ip + '\n and the last ip was: ' + ip_list);
 });
 
 app.listen(3000, function () {
